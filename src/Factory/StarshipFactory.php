@@ -108,9 +108,9 @@ final class StarshipFactory extends PersistentProxyObjectFactory {
 	protected function defaults(): array|callable {
 		return [
 			'arrivedAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-1 year', 'now')),
-			'captain' => self::faker()->text(),
-			'class' => self::faker()->text(),
-			'name' => self::faker()->text(),
+			'captain' => self::faker()->randomElement(self::CAPTAINS),
+			'class' => self::faker()->randomElement(self::CLASSES),
+			'name' => self::faker()->randomElement(self::SHIP_NAMES),
 			'status' => self::faker()->randomElement(StarshipStatusEnum::cases()),
 		];
 	}
