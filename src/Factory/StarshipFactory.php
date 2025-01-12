@@ -29,7 +29,7 @@ final class StarshipFactory extends PersistentProxyObjectFactory {
 	 */
 	protected function defaults(): array|callable {
 		return [
-			'arrivedAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+			'arrivedAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('-1 year', 'now')),
 			'captain' => self::faker()->text(),
 			'class' => self::faker()->text(),
 			'name' => self::faker()->text(),
