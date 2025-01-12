@@ -13,7 +13,8 @@ class MainController extends AbstractController {
 	public function homepage(
 		EntityManagerInterface $em,
 	): Response {
-		$ships = $starshipRepository->findAll();
+		$ships = $em->createQuery('select s from App\Entity\Starship s')
+			->getResult();
 		$myShip = $ships[array_rand($ships)];
 
 		return $this->render('main/homepage.html.twig', [
