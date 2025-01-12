@@ -14,16 +14,16 @@ class Starship {
 	#[ORM\Column]
 	private ?int $id = null;
 
-	#[ORM\Column(length: 255)]
+	#[ORM\Column]
 	private ?string $name = null;
 
-	#[ORM\Column(length: 255)]
+	#[ORM\Column]
 	private ?string $class = null;
 
-	#[ORM\Column(length: 255)]
+	#[ORM\Column]
 	private ?string $captain = null;
 
-	#[ORM\Column(enumType: StarshipStatusEnum::class)]
+	#[ORM\Column]
 	private ?StarshipStatusEnum $status = null;
 
 	#[ORM\Column]
