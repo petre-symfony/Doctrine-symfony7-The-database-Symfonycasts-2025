@@ -25,6 +25,10 @@ class StarshipRepository extends ServiceEntityRepository {
 			->getQuery()
 			->getResult();
 	}
+
+	public function findMyShip(): Starship{
+		return $this->findAll()[0];
+	}
 	//    /**
 	//     * @return Starship[] Returns an array of Starship objects
 	//     */

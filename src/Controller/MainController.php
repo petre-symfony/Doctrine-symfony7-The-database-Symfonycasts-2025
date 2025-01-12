@@ -15,7 +15,7 @@ class MainController extends AbstractController {
 		StarshipRepository $repository,
 	): Response {
 		$ships = $repository->findIncomplete();
-		$myShip = $ships[array_rand($ships)];
+		$myShip = $repository->findMyShip();
 
 		return $this->render('main/homepage.html.twig', [
 			'myShip' => $myShip,
