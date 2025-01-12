@@ -12,7 +12,7 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20250112153621 extends AbstractMigration {
 	public function getDescription(): string {
-		return '';
+		return 'Add starship table';
 	}
 
 	public function up(Schema $schema): void {
