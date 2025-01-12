@@ -14,6 +14,7 @@ class MainController extends AbstractController {
 	public function homepage(
 		EntityManagerInterface $em,
 	): Response {
+		dd($em->getRepository(Starship::class));
 		$ships = $em->createQueryBuilder()
 			->select('s')
 			->from(Starship::class, 's')
