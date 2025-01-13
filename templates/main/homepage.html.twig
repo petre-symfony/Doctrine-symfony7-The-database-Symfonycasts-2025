@@ -51,6 +51,17 @@
             </div>
           </div>
         {% endfor %}
+
+        {% if ships.haveToPaginate %}
+          <div class="flex justify-around mt-3 underline font-semibold">
+            {% if ships.hasPreviousPage %}
+              <a href="{{ path('app_homepage', { page: ships.getPreviousPage }) }}">&lt; Previous</a>
+            {% endif %}
+            {% if ships.hasNextPage %}
+              <a href="{{ path('app_homepage', { page: ships.getNextPage }) }}">Next &gt;</a>
+            {% endif %}
+          </div>
+        {% endif %}
       </div>
 
       <p class="text-lg mt-5 text-center md:text-left">
