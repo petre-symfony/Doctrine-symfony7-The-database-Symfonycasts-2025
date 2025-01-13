@@ -12,7 +12,7 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20250113184736 extends AbstractMigration {
 	public function getDescription(): string {
-		return '';
+		return 'Add slug and timestamps to starship';
 	}
 
 	public function up(Schema $schema): void {
