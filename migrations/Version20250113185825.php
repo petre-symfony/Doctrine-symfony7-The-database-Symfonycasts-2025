@@ -16,6 +16,8 @@ final class Version20250113185825 extends AbstractMigration {
 	}
 
 	public function up(Schema $schema): void {
+		$this->addSql('UPDATE starship SET slug = id, updated_at = arrived_at, created_at = arrived_at');
+
 		// this up() migration is auto-generated, please modify it to your needs
 		$this->addSql('ALTER TABLE starship ALTER slug SET NOT NULL');
 		$this->addSql('ALTER TABLE starship ALTER updated_at SET NOT NULL');
