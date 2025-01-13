@@ -15,6 +15,8 @@ class MainController extends AbstractController {
 		StarshipRepository $repository,
 	): Response {
 		$ships = $repository->findIncomplete();
+		$ships->setMaxPerPage(5);
+		$ships->setCurrentPage(2);
 		$myShip = $repository->findMyShip();
 
 		return $this->render('main/homepage.html.twig', [
