@@ -12,7 +12,7 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20250113185825 extends AbstractMigration {
 	public function getDescription(): string {
-		return '';
+		return 'Make slug and timestamps not nullable';
 	}
 
 	public function up(Schema $schema): void {
