@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class StarshipController extends AbstractController {
-	#[Route('/starships/{id<\d+>}', name: 'app_starship_show')]
+	#[Route('/starships/{slug}', name: 'app_starship_show')]
 	public function show(Starship $ship): Response {
 
 		return $this->render('starship/show.html.twig', [
