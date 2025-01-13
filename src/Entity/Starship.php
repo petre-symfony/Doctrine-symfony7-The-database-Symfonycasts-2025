@@ -28,7 +28,7 @@ class Starship {
 	#[ORM\Column]
 	private ?DateTimeImmutable $arrivedAt = null;
 
-	#[ORM\Column(length: 255, nullable: true)]
+	#[ORM\Column(nullable: true)]
 	private ?string $slug = null;
 
 	#[ORM\Column(nullable: true)]
