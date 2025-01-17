@@ -2,6 +2,8 @@
 
 namespace App\Command;
 
+use App\Repository\StarshipRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,32 +14,40 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
 	name: 'app:ship:remove',
-	description: 'Add a short description for your command',
+	description: 'Delete a Starship',
 )]
 class ShipRemoveCommand extends Command {
-	public function __construct() {
+	public function __construct(
+		private StarshipRepository $shipRepo,
+		private EntityManagerInterface $em
+	) {
 		parent::__construct();
 	}
 
 	protected function configure(): void {
 		$this
-			->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-			->addOption('option1', null, InputOption::VALUE_NONE, 'Option description');
+			->addArgument('slug', InputArgument::REQUIRED, 'The slug of the starship');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output): int {
 		$io = new SymfonyStyle($input, $output);
-		$arg1 = $input->getArgument('arg1');
+		$slug = $input->getArgument('slug');
+		$ship = $this->shipRepo->findOneBy([
+			'slug' => $slug
+		]);
 
-		if ($arg1) {
-			$io->note(sprintf('You passed an argument: %s', $arg1));
+		if (!$ship) {
+			$io->error('Starship not found');
+
+			return Command::FAILURE;
 		}
 
-		if ($input->getOption('option1')) {
-			// ...
-		}
+		$io->comment(sprintf('Removing starship %s', $ship->getName()));
 
-		$io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+		$this->em->remove($ship);
+		$this->em->flush();
+
+		$io->success('Starship removed');
 
 		return Command::SUCCESS;
 	}
