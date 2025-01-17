@@ -137,4 +137,11 @@ class Starship {
 
 		return $this;
 	}
+
+	public function checkIn(?\DateTimeImmutable $arrivedAt = null): static {
+		$this->arrivedAt = $arrivedAt ?? new \DateTimeImmutable('now');
+		$this->status = StarshipStatusEnum::WAITING;
+		
+		return $this;
+	}
 }
