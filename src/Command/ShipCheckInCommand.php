@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Entity\StarshipStatusEnum;
 use App\Repository\StarshipRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -31,17 +32,25 @@ class ShipCheckInCommand extends Command {
 
 	protected function execute(InputInterface $input, OutputInterface $output): int {
 		$io = new SymfonyStyle($input, $output);
-		$arg1 = $input->getArgument('arg1');
+		$slug = $input->getArgument('slug');
+		$ship = $this->shipRepo->findOneBy([
+			'slug' => $slug
+		]);
 
-		if ($arg1) {
-			$io->note(sprintf('You passed an argument: %s', $arg1));
+		if (!$ship) {
+			$io->error('Starship not found');
+
+			return Command::FAILURE;
 		}
 
-		if ($input->getOption('option1')) {
-			// ...
-		}
+		$io->comment(sprintf('Checking in starship %s', $ship->getName()));
 
-		$io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+		$ship->setArrivedAt(new  \DateTimeImmutable('now'));
+		$ship->setStatus(StarshipStatusEnum::WAITING);
+
+		$this->em->flush();
+
+		$io->success('Starship checked in.');
 
 		return Command::SUCCESS;
 	}
